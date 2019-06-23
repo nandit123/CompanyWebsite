@@ -6,7 +6,8 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    res.send("This is a login page");
+    res.sendFile((__dirname+'/View/login.html'));
+    //__dirname : It will resolve to your project folder.
 });
 
 router.get('/dashboard',function(req,res){
