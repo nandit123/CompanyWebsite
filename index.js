@@ -3,9 +3,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const router = express.Router();
 const main = require('./app')
+// var session = require('express-session');
+
 app.use(bodyParser.urlencoded({ extended: false }))
  
 app.use(bodyParser.json())  
+
+// app.use(session({secret: "uhfewiuiub4iub44jkbj", resave: false, saveUninitialized: false}))
 
 //add the router
 app.use(express.static(__dirname + '/View'));
