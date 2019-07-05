@@ -30,10 +30,21 @@ $("#loginForm").on('submit',function(event) {
         url: "http://localhost:3333/companyUser/login",
         data: dataString
     }).always(function(data){
-        console.log(data);
+        // console.log(data);
         if (data.status == "found") {
-                window.location.href = "dashboard";
-                console.log('email is: ', data.email);
+                // window.location.href = "dashboard";
+                // console.log('email is: ', data.email);
+                console.log('output data is: ', data);
+                dataString = data;
+                console.log('dataString is: ', dataString);
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3000/sessionStart",
+                    data: dataString
+                }).always(function(data){
+                    console.log('data going to dashboard is: ', data);
+                    window.location.href = "dashboard";
+                });
         } else {
             $("#loginMessage").text('Login failed.')
         }
