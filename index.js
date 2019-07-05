@@ -20,6 +20,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
  
 app.use(bodyParser.json())  
 
+// caching disabled for every route
+app.use(function(req, res, next) {
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    next();
+});
+
 //add the router
 app.use(express.static(__dirname + '/View'));
 //Store all HTML files in view folder.

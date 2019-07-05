@@ -47,7 +47,7 @@ router.get('/dashboard',function(req,res){
         console.log('session cant start');
         console.log('req.session: ', req.session);
         // return res.status(401).send();
-        res.sendFile((__dirname+'/View/login.html'));
+        res.redirect('login');
     } else {
         console.log('session started')
         console.log('req.session: ', req.session);
@@ -59,7 +59,7 @@ router.get('/products',function(req,res){
     if(!req.session.companyUser) {
         console.log('req.session: ', req.session);
         // return res.status(401).send();
-        res.sendFile((__dirname+'/View/login.html'));
+        res.redirect('login');
     } else {
         console.log('session started')
         console.log('req.session: ', req.session);
@@ -70,7 +70,8 @@ router.get('/products',function(req,res){
 router.get('/logout',function(req,res){
     if(!req.session.companyUser) {
         console.log('req.session: ', req.session);
-        return res.status(401).send();
+        // return res.status(401).send();
+        res.redirect('login');
     } else {
         console.log('session ending');
         // req.session.destroy(req.session.serverSessionID);
@@ -78,7 +79,7 @@ router.get('/logout',function(req,res){
             if(err){
                 console.log(err);
             } else {
-                res.sendFile((__dirname+'/View/login.html'));
+                res.redirect('login');
             }
         });
     }
