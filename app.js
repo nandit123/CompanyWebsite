@@ -52,7 +52,7 @@ router.get('/dashboard',function(req,res){
         console.log('session started')
         console.log('req.session: ', req.session);
     }
-    res.sendFile((__dirname+'/View/dashboard.html'));
+    res.render((__dirname+'/View/dashboard.html'), {name: req.session.companyUser});
 });
 
 router.get('/products',function(req,res){
@@ -64,7 +64,19 @@ router.get('/products',function(req,res){
         console.log('session started')
         console.log('req.session: ', req.session);
     }
-    res.sendFile((__dirname+'/View/products.html'));
+    res.render((__dirname+'/View/products.html'));
+});
+
+router.get('/currentProduct',function(req,res){
+    if(!req.session.companyUser) {
+        console.log('req.session: ', req.session);
+        // return res.status(401).send();
+        res.redirect('login');
+    } else {
+        console.log('session started')
+        console.log('req.session: ', req.session);
+    }
+    res.render((__dirname+'/View/currentProduct.html'));
 });
 
 router.get('/logout',function(req,res){

@@ -27,10 +27,12 @@ app.use(function(req, res, next) {
 });
 
 //add the router
-app.use(express.static(__dirname + '/View'));
+// app.use(express.static(__dirname + '/View'));
 //Store all HTML files in view folder.
 app.use(express.static(__dirname + '/Script'));
 //Store all JS and CSS in Scripts folder.
+
+app.engine('html', require('ejs').renderFile);
 
 app.use("/", main);
 
