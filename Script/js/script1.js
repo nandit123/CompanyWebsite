@@ -145,10 +145,10 @@ $(".productsTable tr").click(function() {
     var cell1 = cells.eq(0).text();
     var cell2 = cells.eq(1).text();
     var cell3 = cells.eq(2).text();
-    // var cell4 = cells.eq(3).text();
+    var cell4 = cells.eq(3).text();
     // var cell5 = cells.eq(4).text();
     
     // console.log('cell5 is ', cell5);
-    var dataString = "title=" + cell1 + "&picture=" + cell2 + "&description=" + cell3;
+    var dataString = "title=" + cell1 + "&picture=" + cell2 + "&description=" + cell3 + "&totalCodes=" + cell4;
     window.location.href = "currentProduct?" + dataString;
 });

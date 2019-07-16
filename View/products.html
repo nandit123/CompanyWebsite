@@ -33,6 +33,11 @@
     tr:hover td {
         background-color: transparent; /* or #000 */
     }
+
+    #productPicture {
+      width: 40px;
+      height: 40px;
+    }
   </style>
 
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -298,7 +303,7 @@
                     <% for(var i=0; i < products.length; i++) { %>
                       <tr>
                         <td class="title"><%= products[i].title %></td>
-                        <td class="picture"><%= products[i].picture %></td>
+                        <td class="picture"><img id="productPicture" src=<%= products[i].picture %>  onerror="this.src='https://unlimitedpassion.co.uk/wp-content/uploads/2016/06/placeholder4.png'"><span style="display: none;"><%= products[i].picture %></span></td>
                         <td class="description"><%= products[i].description %></td>
                         <td class="codesLength"><%= Object.keys(products[i].codes).length %></td>
                         <td class="codes" style="display: none"><%= products[i].codes %></td>

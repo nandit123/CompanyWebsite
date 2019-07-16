@@ -38,6 +38,13 @@
     input[type=number] {
         -moz-appearance:textfield;
     }
+
+    #productImage {
+      height: 150px; 
+      width: 250px; 
+      margin-bottom: 20px;
+    }
+
   </style>
   <script src="js/script1.js"></script>
 </head>
@@ -285,8 +292,8 @@
           <div class="row">
             <p><strong>Description: </strong><%= currentProductData.description %></p>
           </div>
-          <div class="row">
-            <img src="img/demo-screen-1.jpg" style="height: 150px; width: 150px; border-radius: 30px; margin-bottom: 20px;">
+          <div class="row" id="productImage">
+            <img src=<%= currentProductData.picture %> onerror="this.src='https://unlimitedpassion.co.uk/wp-content/uploads/2016/06/placeholder4.png'" style="width: 250px; height: 150px">
           </div>
           <div class="row">
               <h2 class="h3 mb-4 text-gray-800">Codes</h2>

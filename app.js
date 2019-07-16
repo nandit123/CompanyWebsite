@@ -100,6 +100,7 @@ router.get('/currentProduct',function(req,res){
     var options = {
         url: requestUrl
     };
+    console.log('qq:', req.query);
     let codes = '';
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
