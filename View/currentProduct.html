@@ -20,6 +20,26 @@
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <style>
+    #addCodesForm {
+      padding: 20px;
+    }
+    
+    #updateProductForm, #deleteProductForm {
+      padding: 20px;
+    }
+
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance:textfield;
+    }
+  </style>
+  <script src="js/script1.js"></script>
 </head>
 
 <body id="page-top">
@@ -59,8 +79,8 @@
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="currentProduct">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Current Product</span></a>
       </li>
@@ -223,7 +243,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="companyId"><%= name %></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -258,19 +278,19 @@
 
           <!-- Page Heading -->
           <div class="row">
-            <h1 class="h3 mb-4 text-gray-800">Product Name</h1>
-            <button class="btn btn-secondary" style="height: 35px; margin-left: 20px;">Edit</button>
-            <button class="btn btn-danger" style="height: 35px; margin-left: 20px;">Delete</button>
+            <h1 class="h3 mb-4 text-gray-800" id="productTitle"><%= currentProductData.title %></h1>
+            <a class="btn btn-secondary" style="height: 35px; margin-left: 20px;" href="#" data-toggle="modal" data-target="#updateProductModal">Edit</a>
+            <a class="btn btn-danger" style="height: 35px; margin-left: 20px;" href="#" data-toggle="modal" data-target="#deleteProductModal">Delete</a>
           </div>
           <div class="row">
-            <p><strong>Description: </strong> This is a description a very good one</p>
+            <p><strong>Description: </strong><%= currentProductData.description %></p>
           </div>
           <div class="row">
             <img src="img/demo-screen-1.jpg" style="height: 150px; width: 150px; border-radius: 30px; margin-bottom: 20px;">
           </div>
           <div class="row">
               <h2 class="h3 mb-4 text-gray-800">Codes</h2>
-              <button class="btn btn-primary" style="height: 35px; margin-left: 20px">Add Codes</button>
+              <a class="btn btn-primary" style="height: 35px; margin-left: 20px" href="#" data-toggle="modal" data-target="#addCodesModal">Add Codes</a>
           </div>     
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -295,36 +315,14 @@
                       </tr>
                     </tfoot>
                     <tbody>
-                      <tr>
-                        <td>tfufdsa654</td>
-                        <td>No</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>&%7##ggh</td>
-                        <td>No</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>98ok%%$s</td>
-                        <td>No</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>@#ggh67687</td>
-                        <td>No</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>yguyas%%1778</td>
-                        <td>No</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>hgdf5676@#</td>
-                        <td>No</td>
-                        <td></td>
-                      </tr>
+                      <% var codesArray = Object.keys(codes) %>
+                      <% for(var i=0; i < codesArray.length; i++) { %>
+                        <tr>
+                          <td class="code"><%= codesArray[i] %></td>
+                          <td class="claimed"><%= codes[codesArray[i]].claimed %></td>
+                          <td class="owner"><%= codes[codesArray[i]].owner %></td>
+                        </tr>
+                      <% } %>
                     </tbody>
                   </table>
                 </div>
@@ -377,6 +375,78 @@
     </div>
   </div>
 
+  <!-- addCodes Modal-->
+  <div class="modal fade" id="addCodesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enter Number of Codes to add</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form id="addCodesForm">
+            <div class="" id="addCodesMessage"></div>
+            <div class="form-group">
+                <input type="number" name="amountOfCodes" min="1" placeholder="Number" class="form-control" id="form1" required>
+            </div>
+            <div class="form-group modal-footer">
+                <button type="submit" class="btn btn-primary">Add Codes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- updateProduct Modal-->
+  <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit product details</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form id="updateProductForm">
+            <div class="" id="updateProductMessage"></div>
+            <div class="form-group">
+                <input type="text" name="newProductTitle" value="<%= currentProductData.title %>" class="form-control" id="form1" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="picture" value="<%= currentProductData.picture %>" class="form-control" id="form1" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="description" value="<%= currentProductData.description %>" class="form-control" id="form1" required>
+            </div>
+            <div class="form-group modal-footer">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- deleteProduct Modal-->
+  <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form id="deleteProductForm">
+            <p>This will permanently delete the product and all codes associated with it. This action can't be reversed.</p>
+            <div class="form-group modal-footer">
+                <button type="submit" class="btn btn-primary">Delete</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -393,6 +463,7 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  <script src="js/script1.js"></script>
 </body>
 
 </html>

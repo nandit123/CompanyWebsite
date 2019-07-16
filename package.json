@@ -17,5 +17,8 @@
     "express-session": "^1.16.2",
     "redis": "^2.8.0",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

@@ -64,7 +64,24 @@ router.get('/products',function(req,res){
         console.log('session started')
         console.log('req.session: ', req.session);
     }
-    res.render((__dirname+'/View/products.html'));
+    var requestUrl = 'http://localhost:3333/product/getAllProducts?cId=' + req.session.companyUser;
+    var options = {
+        url: requestUrl
+    };
+    let pd = '';
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          pd = JSON.parse(body);
+          console.log('pd is: ', pd.products);
+          console.log('party 1');
+          res.render((__dirname+'/View/products.html'), {products: pd.products, name: req.session.companyUser});
+        } else {
+          console.log('party 2');
+          res.render((__dirname+'/View/products.html'), {products: [], name: req.session.companyUser});
+        }
+    }
+    
+    request(options, callback);
 });
 
 router.get('/currentProduct',function(req,res){
@@ -76,7 +93,27 @@ router.get('/currentProduct',function(req,res){
         console.log('session started')
         console.log('req.session: ', req.session);
     }
-    res.render((__dirname+'/View/currentProduct.html'));
+    // console.log('query: ', req.query);
+    // res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query});
+
+    var requestUrl = 'http://localhost:3333/code/getCodes?cId=' + req.session.companyUser + '&productTitle=' + req.query.title;
+    var options = {
+        url: requestUrl
+    };
+    let codes = '';
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          codes = JSON.parse(body);
+        //   console.log('codes is: ', codes);
+          console.log('party 1');
+          res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query, codes: codes});
+        } else {
+          console.log('party 2');
+          res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query, codes: {}});
+        }
+    }
+    
+    request(options, callback);
 });
 
 router.get('/logout',function(req,res){

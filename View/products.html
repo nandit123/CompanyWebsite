@@ -20,7 +20,23 @@
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <style>
+    #addProductForm {
+      padding: 20px;
+    }
 
+    tr:hover {
+        background-color: #6f42c1;
+        color: wheat;
+    }
+
+    tr:hover td {
+        background-color: transparent; /* or #000 */
+    }
+  </style>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="js/script1.js"></script>
 </head>
 
 <body id="page-top">
@@ -57,13 +73,6 @@
         <a class="nav-link" href="products">
           <i class="fas fa-fw fa-table"></i>
           <span>Products</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="currentProduct">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Current Product</span></a>
       </li>
 
       <!-- Divider -->
@@ -224,7 +233,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Company Name</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="companyId"><%= name %></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -258,7 +267,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Products<button class="btn btn-primary" style="margin-left: 25px;">Add Product</button></h1>
+          <h1 class="h3 mb-2 text-gray-800">Products<a class="btn btn-primary" style="margin-left: 25px;" href="#" data-toggle="modal" data-target="#addProductModal">Add Product</a></h1>
           <p class="mb-4">Details of all your products </p>
           
           <!-- DataTales Example -->
@@ -268,9 +277,9 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered productsTable" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
+                    <tr style="background-color: #fff; color: #999" id="headRow">
                       <th>Title</th>
                       <th>Picture</th>
                       <th>Description</th>
@@ -278,7 +287,7 @@
                     </tr>
                   </thead>
                   <tfoot>
-                    <tr>
+                    <tr style="background-color: #fff; color: #999" id="footRow">
                       <th>Title</th>
                       <th>Picture</th>
                       <th>Description</th>
@@ -286,42 +295,15 @@
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>63</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                      <td>San Francisco</td>
-                      <td>66</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                      <td>Edinburgh</td>
-                      <td>22</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>33</td>
-                    </tr>
-                    <tr>
-                      <td>Brielle Williamson</td>
-                      <td>Integration Specialist</td>
-                      <td>New York</td>
-                      <td>61</td>
-                    </tr>
+                    <% for(var i=0; i < products.length; i++) { %>
+                      <tr>
+                        <td class="title"><%= products[i].title %></td>
+                        <td class="picture"><%= products[i].picture %></td>
+                        <td class="description"><%= products[i].description %></td>
+                        <td class="codesLength"><%= Object.keys(products[i].codes).length %></td>
+                        <td class="codes" style="display: none"><%= products[i].codes %></td>
+                      </tr>
+                    <% } %>
                   </tbody>
                 </table>
               </div>
@@ -372,6 +354,35 @@
     </div>
   </div>
 
+  <!-- addProduct Modal-->
+  <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enter Product Details</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form id="addProductForm">
+            <div class="" id="addProductMessage"></div>
+            <div class="form-group">
+                <input type="text" name="title" placeholder="Title" class="form-control" id="form1" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="picture" placeholder="Image Url" class="form-control" id="form1">
+            </div>
+            <div class="form-group">
+                <input type="text" name="description" placeholder="Description" class="form-control" id="form1" required>
+            </div>
+
+            <div class="form-group modal-footer">
+                <button type="submit" class="btn btn-primary">Add Products</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -381,6 +392,8 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+  <script src="js/script1.js"></script>
 
   <!-- Page level plugins -->
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
