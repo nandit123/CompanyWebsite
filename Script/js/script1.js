@@ -150,5 +150,18 @@ $(".productsTable tr").click(function() {
     
     // console.log('cell5 is ', cell5);
     var dataString = "title=" + cell1 + "&picture=" + cell2 + "&description=" + cell3 + "&totalCodes=" + cell4;
-    window.location.href = "currentProduct?" + dataString;
+    if (cell1 != '' && cell2 != '') {
+        window.location.href = "currentProduct?" + dataString;
+    }
 });
+
+// $(document).ready(function() {
+//     $('#dataTable').dataTable( {
+//         paging: false,
+//         searching: false,
+//         dom: 'Bfrtip',
+//         buttons: [
+//             'copy', 'csv', 'excel', 'pdf', 'print'
+//         ]
+//     } );
+// } );
