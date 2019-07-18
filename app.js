@@ -104,7 +104,11 @@ router.get('/currentProduct',function(req,res){
     let codes = '';
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
+        try {
           codes = JSON.parse(body);
+        } catch (e) {
+            codes = {}
+        }
         //   console.log('codes is: ', codes);
           console.log('party 1');
           res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query, codes: codes});
