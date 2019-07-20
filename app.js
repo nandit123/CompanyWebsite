@@ -30,6 +30,11 @@ router.get("/login", (req, res) => {
     res.sendFile((__dirname+'/View/login.html'));
 });
 
+router.get("/register", (req, res) => {
+    console.log('register page')
+    res.sendFile((__dirname+'/View/register.html'));
+});
+
 router.post("/sessionStart", (req, res) => {
     console.log('session start function');
     console.log('req is: ', req.body);

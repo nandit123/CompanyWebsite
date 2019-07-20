@@ -14,6 +14,8 @@ $("#registerForm").on('submit',function(event) {
             console.log(data);
             if (data.responseText == "Data added") {
                 $("#registerSuccess").text('Registeration Success, Now login.')
+            } else if (data.responseText == "alreadyAdded") {
+                $("#registerSuccess").text('Registeration Failed, Email already in use.')
             } else {
                 $("#registerSuccess").text('Registeration Failed.')
             }
@@ -46,7 +48,7 @@ $("#loginForm").on('submit',function(event) {
                     window.location.href = "dashboard";
                 });
         } else {
-            $("#loginMessage").text('Login failed.')
+            $("#loginMessage").text('Login failed, Incorrect Details.')
         }
     });
 });
