@@ -55,12 +55,36 @@ router.get('/dashboard',function(req,res){
     res.render((__dirname+'/View/dashboard.html'), {name: req.session.companyUser});
 });
 
+router.get('/reviews',function(req,res){
+    if(!req.session.companyUser) {
+        res.redirect('login');
+    } else {
+    }
+    res.render((__dirname+'/View/reviews.html'), {name: req.session.companyUser});
+});
+
 router.get('/settings',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
     }
-    res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser});
+    var requestUrl = 'http://localhost:3333/companyUser/settings?cId=' + req.session.companyUser;
+    var options = {
+        url: requestUrl
+    };
+    let pd = '';
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          pd = JSON.parse(body);
+          console.log('pd is: ', pd);
+          console.log('party 1');
+          res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser, companyData: pd});
+        } else {
+          console.log('party 2');
+          res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser});
+        }
+    }
+    request(options, callback);
 });
 
 router.get('/products',function(req,res){
