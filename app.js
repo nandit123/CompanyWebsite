@@ -49,15 +49,18 @@ router.post("/sessionStart", (req, res) => {
 
 router.get('/dashboard',function(req,res){
     if(!req.session.companyUser) {
-        console.log('session cant start');
-        console.log('req.session: ', req.session);
-        // return res.status(401).send();
         res.redirect('login');
     } else {
-        console.log('session started')
-        console.log('req.session: ', req.session);
     }
     res.render((__dirname+'/View/dashboard.html'), {name: req.session.companyUser});
+});
+
+router.get('/settings',function(req,res){
+    if(!req.session.companyUser) {
+        res.redirect('login');
+    } else {
+    }
+    res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser});
 });
 
 router.get('/products',function(req,res){
