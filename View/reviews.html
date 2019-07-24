@@ -129,6 +129,7 @@
                       <th>Date</th>
                       <th>Review</th>
                       <th>Email</th>
+                      <th>Rating</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -138,16 +139,20 @@
                         <th>Date</th>
                         <th>Review</th>
                         <th>Email</th>
+                        <th>Rating</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                      <tr>
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
-                      </tr>
+                      <% for(var i=0; i < reviews.length; i++) { %>
+                        <tr>
+                            <td><%= reviews[i].productName %></td>
+                            <td><%= reviews[i].code %></td>
+                            <td><%= reviews[i].date %></td>
+                            <td><%= reviews[i].description %></td>
+                            <td><%= reviews[i].userEmail %></td>
+                            <td><%= reviews[i].rating %></td> 
+                        </tr>
+                      <% } %>
                   </tbody>
                 </table>
               </div>

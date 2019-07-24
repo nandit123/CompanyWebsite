@@ -57,11 +57,33 @@ router.get('/dashboard',function(req,res){
 
 router.get('/reviews',function(req,res){
     if(!req.session.companyUser) {
+        console.log('req.session: ', req.session);
+        // return res.status(401).send();
         res.redirect('login');
     } else {
+        console.log('session started')
+        console.log('req.session: ', req.session);
     }
-    res.render((__dirname+'/View/reviews.html'), {name: req.session.companyUser});
+    var requestUrl = 'http://localhost:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser;
+    var options = {
+        url: requestUrl
+    };
+    let rd = '';
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          rd = JSON.parse("" + (body));
+          console.log('rd is: ', rd.reviews);
+          console.log('party 1');
+          res.render((__dirname+'/View/reviews.html'), {reviews: rd.reviews, name: req.session.companyUser});
+        } else {
+          console.log('party 2');
+          res.render((__dirname+'/View/reviews.html'), {reviews: [], name: req.session.companyUser});
+        }
+    }
+    
+    request(options, callback);
 });
+
 
 router.get('/settings',function(req,res){
     if(!req.session.companyUser) {
@@ -103,7 +125,7 @@ router.get('/products',function(req,res){
     let pd = '';
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
-          pd = JSON.parse(body);
+          pd = JSON.parse("" + (body));
           console.log('pd is: ', pd.products);
           console.log('party 1');
           res.render((__dirname+'/View/products.html'), {products: pd.products, name: req.session.companyUser});
