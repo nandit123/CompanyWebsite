@@ -157,6 +157,28 @@ $(".productsTable tr").click(function() {
     }
 });
 
+$("#updateSettingsForm").on('submit',function(event) {
+    event.preventDefault(); // to prevent default page reloading
+    var dataString = $(this).serialize(); // to get the form data
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3333/companyUser/updateCompanyInfo",
+        data: dataString
+    }).always(function(data){
+        // setTimeout(function () {
+            // $('#registerForm')[0].reset();
+            // $("#registerSuccess").show();
+            console.log(data);
+            if (data.status == "updated") {
+                window.location.href = "settings";
+            } else {
+                console.log("updateFailed");
+                window.location.href = "settings";
+            }
+        // }, 1000);
+    });
+});
+
 // $(document).ready(function() {
 //     $('#dataTable').dataTable( {
 //         paging: false,

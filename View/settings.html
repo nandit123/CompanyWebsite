@@ -70,7 +70,7 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Reviews</span></a>
       </li>
-      
+
       <!-- Nav Item - Tables -->
       <li class="nav-item active">
         <a class="nav-link" href="#">
@@ -107,13 +107,13 @@
                   <td width="50%"><b>Company Name:</b> </td><td><%= companyData.name %></td>
               </tr>
               <tr>
-                  <td><b>Email:</b> </td><td><%= companyData.email %></td>
-              </tr>
-              <tr>
                   <td><b>Contact Number:</b> </td><td><%= companyData.contactNumber %></td>
               </tr>
               <tr>
                   <td><b>City:</b> </td><td><%= companyData.city %></td>
+              </tr>
+              <tr>
+                  <td><b>Email:</b> </td><td><%= companyData.email %></td>
               </tr>
               <tr>
                   <td><b>Password:</b> </td><td>***************</td>
@@ -173,10 +173,7 @@
         <form id="updateSettingsForm">
             <div class="" id="updateSettingsMessage"></div>
             <div class="form-group">
-                <input type="text" name="companyName" placeholder="Company Name" value="<%= companyData.name %>" class="form-control" id="form1" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email" value="<%= companyData.email %>" class="form-control" id="form1" required>
+                <input type="text" name="name" placeholder="Company Name" value="<%= companyData.name %>" class="form-control" id="form1" required>
             </div>
             <div class="form-group">
                 <input type="text" name="contactNumber" placeholder="Contact Number" value="<%= companyData.contactNumber %>" class="form-control" id="form1" required>
@@ -185,11 +182,14 @@
                 <input type="text" name="city" placeholder="City" value="<%= companyData.city %>" class="form-control" id="form1" required>
             </div>
             <div class="form-group">
+                <input type="email" name="email" placeholder="Email" value="<%= companyData.email %>" class="form-control" id="form1" required readonly>
+            </div>
+            <!-- <div class="form-group">
                 <input type="password" name="currentPassword" placeholder="Current Password" class="form-control" id="form1">
             </div>
             <div class="form-group">
                 <input type="password" name="newPassword" placeholder="New Password" class="form-control" id="form1">
-            </div>
+            </div> -->
             <div class="form-group modal-footer">
                 <button type="submit" class="btn btn-primary">Update</button>
             </div>
@@ -207,6 +207,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+  <script src="js/script1.js"></script>
 
 </body>
 
