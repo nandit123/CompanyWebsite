@@ -13,7 +13,7 @@ $("#registerForm").on('submit',function(event) {
             $("#registerSuccess").show();
             console.log(data);
             if (data.responseText == "Data added") {
-                $("#registerSuccess").text('Registeration Success, Now login.')
+                $("#registerSuccess").text('Registeration Success, Check your email for Verification Link!')
             } else if (data.responseText == "alreadyAdded") {
                 $("#registerSuccess").text('Registeration Failed, Email already in use.')
             } else {
@@ -47,6 +47,8 @@ $("#loginForm").on('submit',function(event) {
                     console.log('data going to dashboard is: ', data);
                     window.location.href = "dashboard";
                 });
+        } else if (data.status == "foundButNotVerified") {
+            $("#loginMessage").text('Please verify your account.')
         } else {
             $("#loginMessage").text('Login failed, Incorrect Details.')
         }
@@ -189,3 +191,23 @@ $("#updateSettingsForm").on('submit',function(event) {
 //         ]
 //     } );
 // } );
+
+$("#verifyAccountForm").on('submit',function(event) {
+    event.preventDefault(); // to prevent default page reloading
+    var dataString = $(this).serialize(); // to get the form data
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3333/companyUser/verify",
+        data: dataString
+    }).always(function(data){
+        setTimeout(function () {
+            $('#verifyAccountForm')[0].reset();
+            console.log(data);
+            if (data.responseText == "emailSent") {
+                $("#emailSentSuccess").text('Check your email for Verification Link!')
+            } else {
+                $("#emailSentSuccess").text('Email cant be sent.')
+            }
+        }, 1000);
+    });
+});

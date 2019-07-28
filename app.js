@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
 
 router.get("/login", (req, res) => {
     console.log('login page')
-    res.sendFile((__dirname+'/View/login.html'));
+    res.render((__dirname+'/View/login.html'), {message: ""});
 });
 
 router.get("/register", (req, res) => {
@@ -53,6 +53,14 @@ router.get('/dashboard',function(req,res){
     } else {
     }
     res.render((__dirname+'/View/dashboard.html'), {name: req.session.companyUser});
+});
+
+router.get('/forgot-password',function(req,res){
+    res.render((__dirname+'/View/forgot-password.html'));
+});
+
+router.get('/verify',function(req,res){
+    res.render((__dirname+'/View/verify.html'));
 });
 
 router.get('/reviews',function(req,res){
@@ -84,6 +92,27 @@ router.get('/reviews',function(req,res){
     request(options, callback);
 });
 
+router.get('/verifyAccount',function(req,res){
+    var email = req.query.email;
+    var code = req.query.code;
+
+    var requestUrl = 'http://localhost:3333/companyUser/verifyAccount?email=' + email + '&code=' + code;
+    var options = {
+        url: requestUrl
+    };
+    let rd = '';
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          console.log('party 1');
+          res.render((__dirname+'/View/login.html'), {message: "Account verified"});
+        } else {
+          console.log('party 2');
+          res.render((__dirname+'/View/login.html'), {message: "Account can't be verified"});
+        }
+    }
+    
+    request(options, callback);
+});
 
 router.get('/settings',function(req,res){
     if(!req.session.companyUser) {
