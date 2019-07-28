@@ -181,17 +181,6 @@ $("#updateSettingsForm").on('submit',function(event) {
     });
 });
 
-// $(document).ready(function() {
-//     $('#dataTable').dataTable( {
-//         paging: false,
-//         searching: false,
-//         dom: 'Bfrtip',
-//         buttons: [
-//             'copy', 'csv', 'excel', 'pdf', 'print'
-//         ]
-//     } );
-// } );
-
 $("#verifyAccountForm").on('submit',function(event) {
     event.preventDefault(); // to prevent default page reloading
     var dataString = $(this).serialize(); // to get the form data
@@ -207,6 +196,46 @@ $("#verifyAccountForm").on('submit',function(event) {
                 $("#emailSentSuccess").text('Check your email for Verification Link!')
             } else {
                 $("#emailSentSuccess").text('Email cant be sent.')
+            }
+        }, 1000);
+    });
+});
+
+$("#forgotPasswordEmailForm").on('submit',function(event) {
+    event.preventDefault(); // to prevent default page reloading
+    var dataString = $(this).serialize(); // to get the form data
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3333/companyUser/forgotPassword",
+        data: dataString
+    }).always(function(data){
+        setTimeout(function () {
+            $('#forgotPasswordEmailForm')[0].reset();
+            console.log(data);
+            if (data.responseText == "emailSent") {
+                $("#passwordEmailSentSuccess").text('Check your email for Password Change Link!')
+            } else {
+                $("#passwordEmailSentSuccess").text('Email cant be sent.')
+            }
+        }, 1000);
+    });
+});
+
+$("#resetPasswordForm").on('submit',function(event) {
+    event.preventDefault(); // to prevent default page reloading
+    var dataString = $(this).serialize(); // to get the form data
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3333/companyUser/resetPassword",
+        data: dataString + '&passwordResetCode=' + $('#passwordResetCode').text()
+    }).always(function(data){
+        setTimeout(function () {
+            $('#resetPasswordForm')[0].reset();
+            console.log(data);
+            if (data.responseText == "passwordChanged") {
+                window.location.href = "login";
+            } else {
+                $("#newPasswordSuccess").text('Password reset error.')
             }
         }, 1000);
     });

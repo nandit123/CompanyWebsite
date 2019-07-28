@@ -59,6 +59,11 @@ router.get('/forgot-password',function(req,res){
     res.render((__dirname+'/View/forgot-password.html'));
 });
 
+router.get('/resetPassword',function(req,res){
+    var code = req.query.code;
+    res.render((__dirname+'/View/reset-password.html'), {passwordResetCode: code});
+});
+
 router.get('/verify',function(req,res){
     res.render((__dirname+'/View/verify.html'));
 });
