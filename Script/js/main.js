@@ -129,6 +129,7 @@
   });
 
   $("#contactForm").on('submit',function(event) {
+    $('#sendMessage').hide();
     event.preventDefault(); // to prevent default page reloading
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
@@ -142,6 +143,25 @@
             } else {
                 $('#sendMessage').show();
                 $("#sendMessage").text('Email cant be sent.')
+            }
+    });
+  });
+
+  $("#subscribeForm").on('submit',function(event) {
+    event.preventDefault(); // to prevent default page reloading
+    var dataString = $(this).serialize(); // to get the form data
+    $('#subscribeMessage').hide();
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3333/email/subscribe",
+        data: dataString
+    }).always(function(data){
+            if (data.responseText == "mailAdded") {
+              $('#subscribeForm')[0].reset();
+              $('#subscribeMessage').show();
+            } else {
+                $('#subscribeMessage').show();
+                $("#subscribeMessage").text('Try later')
             }
     });
   });

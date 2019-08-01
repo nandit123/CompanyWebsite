@@ -1323,7 +1323,7 @@ h6 {
   border: 1px solid #d9dde6;
 }
 
-#footer .footer-top .footer-newsletter input[type="submit"] {
+#footer .footer-top .footer-newsletter button[type="submit"] {
   background: #4e73df;
   border: 1px solid #4e73df;
   width: 35%;
@@ -1334,7 +1334,7 @@ h6 {
   cursor: pointer;
 }
 
-#footer .footer-top .footer-newsletter input[type="submit"]:hover {
+#footer .footer-top .footer-newsletter button[type="submit"]:hover {
   background: #0a98c0;
 }
 
@@ -1350,6 +1350,16 @@ h6 {
   padding: 15px;
   font-weight: 600;
   margin-bottom: 15px;
+}
+
+#subscribeMessage {
+  color: #fff;
+  background: #4e73df;
+  display: none;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+  margin-top: 15px;
 }
 
 #footer .footer-top .form #errormessage {
