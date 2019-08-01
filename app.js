@@ -76,25 +76,25 @@ router.get('/reviews',function(req,res){
     } else {
         console.log('session started')
         console.log('req.session: ', req.session);
-    }
-    var requestUrl = 'http://localhost:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser;
-    var options = {
-        url: requestUrl
-    };
-    let rd = '';
-    function callback(error, response, body) {
-        if (!error && response.statusCode == 200) {
-          rd = JSON.parse("" + (body));
-          console.log('rd is: ', rd.reviews);
-          console.log('party 1');
-          res.render((__dirname+'/View/reviews.html'), {reviews: rd.reviews, name: req.session.companyUser});
-        } else {
-          console.log('party 2');
-          res.render((__dirname+'/View/reviews.html'), {reviews: [], name: req.session.companyUser});
+        var requestUrl = 'http://localhost:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser;
+        var options = {
+            url: requestUrl
+        };
+        let rd = '';
+        function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+            console.log('87 body: ', body)
+            rd = JSON.parse("" + (body));
+            console.log('rd is: ', rd.reviews);
+            console.log('party 1');
+            res.render((__dirname+'/View/reviews.html'), {reviews: rd.reviews, name: req.session.companyUser});
+            } else {
+            console.log('party 2');
+            res.render((__dirname+'/View/reviews.html'), {reviews: [], name: req.session.companyUser});
+            }
         }
+        request(options, callback);
     }
-    
-    request(options, callback);
 });
 
 router.get('/verifyAccount',function(req,res){
@@ -123,24 +123,24 @@ router.get('/settings',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
-    }
-    var requestUrl = 'http://localhost:3333/companyUser/settings?cId=' + req.session.companyUser;
-    var options = {
-        url: requestUrl
-    };
-    let pd = '';
-    function callback(error, response, body) {
-        if (!error && response.statusCode == 200) {
-          pd = JSON.parse(body);
-          console.log('pd is: ', pd);
-          console.log('party 1');
-          res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser, companyData: pd});
-        } else {
-          console.log('party 2');
-          res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser});
+        var requestUrl = 'http://localhost:3333/companyUser/settings?cId=' + req.session.companyUser;
+        var options = {
+            url: requestUrl
+        };
+        let pd = '';
+        function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+            pd = JSON.parse(body);
+            console.log('pd is: ', pd);
+            console.log('party 1');
+            res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser, companyData: pd});
+            } else {
+            console.log('party 2');
+            res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser});
+            }
         }
+        request(options, callback);
     }
-    request(options, callback);
 });
 
 router.get('/products',function(req,res){
@@ -151,25 +151,26 @@ router.get('/products',function(req,res){
     } else {
         console.log('session started')
         console.log('req.session: ', req.session);
-    }
-    var requestUrl = 'http://localhost:3333/product/getAllProducts?cId=' + req.session.companyUser;
-    var options = {
-        url: requestUrl
-    };
-    let pd = '';
-    function callback(error, response, body) {
-        if (!error && response.statusCode == 200) {
-          pd = JSON.parse("" + (body));
-          console.log('pd is: ', pd.products);
-          console.log('party 1');
-          res.render((__dirname+'/View/products.html'), {products: pd.products, name: req.session.companyUser});
-        } else {
-          console.log('party 2');
-          res.render((__dirname+'/View/products.html'), {products: [], name: req.session.companyUser});
+
+        var requestUrl = 'http://localhost:3333/product/getAllProducts?cId=' + req.session.companyUser;
+        var options = {
+            url: requestUrl
+        };
+        let pd = '';
+        function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+            pd = JSON.parse("" + (body));
+            console.log('pd is: ', pd.products);
+            console.log('party 1');
+            res.render((__dirname+'/View/products.html'), {products: pd.products, name: req.session.companyUser});
+            } else {
+            console.log('party 2');
+            res.render((__dirname+'/View/products.html'), {products: [], name: req.session.companyUser});
+            }
         }
+        
+        request(options, callback);
     }
-    
-    request(options, callback);
 });
 
 router.get('/currentProduct',function(req,res){
@@ -180,33 +181,32 @@ router.get('/currentProduct',function(req,res){
     } else {
         console.log('session started')
         console.log('req.session: ', req.session);
+        var requestUrl = 'http://localhost:3333/code/getCodes?cId=' + req.session.companyUser + '&productTitle=' + req.query.title;
+        var options = {
+            url: requestUrl
+        };
+        console.log('qq:', req.query);
+        let codes = '';
+        function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+            try {
+            codes = JSON.parse(body);
+            } catch (e) {
+                codes = {}
+            }
+            //   console.log('codes is: ', codes);
+            console.log('party 1');
+            res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query, codes: codes});
+            } else {
+            console.log('party 2');
+            res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query, codes: {}});
+            }
+        }
+        
+        request(options, callback);
     }
     // console.log('query: ', req.query);
     // res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query});
-
-    var requestUrl = 'http://localhost:3333/code/getCodes?cId=' + req.session.companyUser + '&productTitle=' + req.query.title;
-    var options = {
-        url: requestUrl
-    };
-    console.log('qq:', req.query);
-    let codes = '';
-    function callback(error, response, body) {
-        if (!error && response.statusCode == 200) {
-        try {
-          codes = JSON.parse(body);
-        } catch (e) {
-            codes = {}
-        }
-        //   console.log('codes is: ', codes);
-          console.log('party 1');
-          res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query, codes: codes});
-        } else {
-          console.log('party 2');
-          res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query, codes: {}});
-        }
-    }
-    
-    request(options, callback);
 });
 
 router.get('/logout',function(req,res){
