@@ -122,24 +122,16 @@ $("#deleteProductForm").on('submit',function(event) {
 $("#addCodesForm").on('submit',function(event) {
     event.preventDefault(); // to prevent default page reloading
     var dataString = $(this).serialize(); // to get the form data
-    // $("#addProductMessage").text('');
-    dataString.companyId = $('#companyId').text();
-    dataString.productTitle = $('#productTitle').text();
-    console.log('helo');
     dataString = dataString + '&companyId=' + $('#companyId').text() + '&productTitle=' + $('#productTitle').text();
-    console.log('companyId is: ', $('#companyId').text());
-    console.log('dataString is: ', dataString);
     $.ajax({
         type: "POST",
         url: "http://localhost:3333/code/addCodes",
         data: dataString
     }).always(function(data){
-        console.log('adding or not: ', data);
         if (data.responseText == "added") {
-                console.log('output data is: ', data);
-                window.location.href = "";
+            window.location.href = 'currentProduct?title=' + $('#productTitle').text();
         } else {
-            $("#addProductMessage").text('Product title already in use.')
+            console.log('codes cant be added at this moment.')
         }
     });
 });
@@ -147,14 +139,14 @@ $("#addCodesForm").on('submit',function(event) {
 $(".productsTable tr").click(function() {
     var cells = $(this).closest("tr").children("td");
     var cell1 = cells.eq(0).text();
-    var cell2 = cells.eq(1).text();
-    var cell3 = cells.eq(2).text();
-    var cell4 = cells.eq(3).text();
+    // var cell2 = cells.eq(1).text();
+    // var cell3 = cells.eq(2).text();
+    // var cell4 = cells.eq(3).text();
     // var cell5 = cells.eq(4).text();
     
     // console.log('cell5 is ', cell5);
-    var dataString = "title=" + cell1 + "&picture=" + cell2 + "&description=" + cell3 + "&totalCodes=" + cell4;
-    if (cell1 != '' && cell2 != '') {
+    var dataString = "title=" + cell1;
+    if (cell1 != '') {
         window.location.href = "currentProduct?" + dataString;
     }
 });

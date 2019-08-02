@@ -185,21 +185,21 @@ router.get('/currentProduct',function(req,res){
         var options = {
             url: requestUrl
         };
-        console.log('qq:', req.query);
         let codes = '';
+        let productData = '';
         function callback(error, response, body) {
             if (!error && response.statusCode == 200) {
             try {
-            codes = JSON.parse(body);
+                productData = JSON.parse(body);
             } catch (e) {
                 codes = {}
             }
             //   console.log('codes is: ', codes);
             console.log('party 1');
-            res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query, codes: codes});
+            res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: productData});
             } else {
             console.log('party 2');
-            res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query, codes: {}});
+            res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: productData, codes: {}});
             }
         }
         

@@ -46,7 +46,6 @@
     }
 
   </style>
-  <script src="js/script1.js"></script>
 </head>
 
 <body id="page-top">
@@ -129,7 +128,14 @@
             <a class="btn btn-danger" style="height: 35px; margin-left: 20px;" href="#" data-toggle="modal" data-target="#deleteProductModal">Delete</a>
           </div>
           <div class="row">
-            <p><strong>Description: </strong><%= currentProductData.description %></p>
+              <p><strong>Description: </strong><%= currentProductData.description %></p>
+          </div>
+          <div class="row">
+            <p><strong>Total Codes: </strong><%= Object.keys(currentProductData.codes).length %></p>
+          </div>
+          
+          <div class="row">
+            <p><strong>Batches Produced: </strong><%= currentProductData.batches %></p>
           </div>
           <div class="row" id="productImage">
             <img src=<%= currentProductData.picture %> onerror="this.src='https://unlimitedpassion.co.uk/wp-content/uploads/2016/06/placeholder4.png'" style="width: 250px; height: 150px">
@@ -148,6 +154,7 @@
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                       <tr>
+                        <th>Batch</th>
                         <th>Code</th>
                         <th>Claimed</th>
                         <th>Owner</th>
@@ -155,18 +162,20 @@
                     </thead>
                     <tfoot>
                       <tr>
+                        <th>Batch</th>
                         <th>Code</th>
                         <th>Claimed</th>
                         <th>Owner</th>
                       </tr>
                     </tfoot>
                     <tbody>
-                      <% var codesArray = Object.keys(codes) %>
+                      <% var codesArray = Object.keys(currentProductData.codes) %>
                       <% for(var i=0; i < codesArray.length; i++) { %>
                         <tr>
-                          <td class="code"><%= codesArray[i] %></td>
-                          <td class="claimed"><%= codes[codesArray[i]].claimed %></td>
-                          <td class="owner"><%= codes[codesArray[i]].owner %></td>
+                          <td class="batch"><%= currentProductData.codes[codesArray[i]].batch %></td>
+                          <td class="code"><%= currentProductData.codes[codesArray[i]].code %></td>
+                          <td class="claimed"><%= currentProductData.codes[codesArray[i]].claimed %></td>
+                          <td class="owner"><%= currentProductData.codes[codesArray[i]].owner %></td>
                         </tr>
                       <% } %>
                     </tbody>
@@ -304,7 +313,7 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/script1.js"></script>
-  <script src="js/jquery.table2excel.js"></script>
+  <!-- <script src="js/jquery.table2excel.js"></script> -->
   
   <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
