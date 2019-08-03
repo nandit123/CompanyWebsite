@@ -160,12 +160,15 @@ router.get('/products',function(req,res){
         function callback(error, response, body) {
             if (!error && response.statusCode == 200) {
             pd = JSON.parse("" + (body));
-            console.log('pd is: ', pd.products);
+            // console.log('pd is: ', pd.products);
             console.log('party 1');
+            // for (var i = 0; i < pd.products.length; i++) {
+            //     pd.products[i].codes = Object.keys(pd.products[i].codes).length;
+            // }
             res.render((__dirname+'/View/products.html'), {products: pd.products, name: req.session.companyUser});
             } else {
-            console.log('party 2');
-            res.render((__dirname+'/View/products.html'), {products: [], name: req.session.companyUser});
+                console.log('party 2');
+                res.render((__dirname+'/View/products.html'), {products: [], name: req.session.companyUser});
             }
         }
         

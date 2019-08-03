@@ -131,7 +131,7 @@
               <p><strong>Description: </strong><%= currentProductData.description %></p>
           </div>
           <div class="row">
-            <p><strong>Total Codes: </strong><%= Object.keys(currentProductData.codes).length %></p>
+            <p><strong>Total Codes: </strong><%= currentProductData.totalCodes %></p>
           </div>
           
           <div class="row">
@@ -172,7 +172,7 @@
                       <% var codesArray = Object.keys(currentProductData.codes) %>
                       <% for(var i=0; i < codesArray.length; i++) { %>
                         <tr>
-                          <td class="batch"><%= currentProductData.codes[codesArray[i]].batch %></td>
+                          <td class="batch">Batch<%= currentProductData.codes[codesArray[i]].batch %>#</td>
                           <td class="code"><%= currentProductData.codes[codesArray[i]].code %></td>
                           <td class="claimed"><%= currentProductData.codes[codesArray[i]].claimed %></td>
                           <td class="owner"><%= currentProductData.codes[codesArray[i]].owner %></td>

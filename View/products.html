@@ -144,8 +144,7 @@
                         <td class="title"><%= products[i].title %></td>
                         <td class="picture"><img id="productPicture" src=<%= products[i].picture %>  onerror="this.src='https://unlimitedpassion.co.uk/wp-content/uploads/2016/06/placeholder4.png'"><span style="display: none;"><%= products[i].picture %></span></td>
                         <td class="description"><%= products[i].description %></td>
-                        <td class="codesLength"><%= Object.keys(products[i].codes).length %></td>
-                        <td class="codes" style="display: none"><%= products[i].codes %></td>
+                        <td class="codesLength"><%= products[i].totalCodes %></td>
                       </tr>
                     <% } %>
                   </tbody>
