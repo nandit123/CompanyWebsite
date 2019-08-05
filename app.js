@@ -51,8 +51,35 @@ router.get('/dashboard',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
+        var requestUrl = 'http://localhost:3333/product/getAllProducts?cId=' + req.session.companyUser;
+        var options = {
+            url: requestUrl
+        };
+        let pd = '';
+        function callback(error, response, body) {
+            pd = JSON.parse("" + (body));
+            // console.log('pd is: ', pd.products);
+            console.log('party 1');
+            let totalCodes = 0;
+            let totalProducts = pd.products.length;
+            for (var i = 0; i < totalProducts; i++) {
+                totalCodes += pd.products[i].totalCodes;
+            }
+            var requestUrl2 = 'http://localhost:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser + "&type=" + 1;
+            var options2 = {
+                url: requestUrl2
+            };
+            function callback2(error, response, body) {
+                let rd = JSON.parse(body);
+                let totalReviews = rd.reviews.length;
+                console.log('totalReviews: ', totalReviews)
+                
+                res.render((__dirname+'/View/dashboard.html'), {totalCodes: totalCodes, totalProducts: totalProducts, totalReviews: totalReviews, name: req.session.companyUser});
+            }
+            request(options2, callback2);
+        }
+        request(options, callback);
     }
-    res.render((__dirname+'/View/dashboard.html'), {name: req.session.companyUser});
 });
 
 router.get('/forgot-password',function(req,res){
