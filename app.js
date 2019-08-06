@@ -37,13 +37,9 @@ router.get("/register", (req, res) => {
 
 router.post("/sessionStart", (req, res) => {
     console.log('session start function');
-    console.log('req is: ', req.body);
     console.log('email is: ', req.body['session[companyUser][email]']);
     req.session.companyUser = req.body['session[companyUser][email]'];
     req.session.serverSessionID = req.body.sessionID;
-    console.log('Session ID is => ', req.sessionID);
-    console.log('Server Session ID is => ', req.session.serverSessionID);
-    console.log('req.session at session start => ', req.session);
     res.status(200).send();
 });
 
@@ -58,8 +54,6 @@ router.get('/dashboard',function(req,res){
         let pd = '';
         function callback(error, response, body) {
             pd = JSON.parse("" + (body));
-            // console.log('pd is: ', pd.products);
-            console.log('party 1');
             let totalCodes = 0;
             let totalProducts = pd.products.length;
             for (var i = 0; i < totalProducts; i++) {
@@ -72,7 +66,6 @@ router.get('/dashboard',function(req,res){
             function callback2(error, response, body) {
                 let rd = JSON.parse(body);
                 let totalReviews = rd.reviews.length;
-                console.log('totalReviews: ', totalReviews)
                 
                 res.render((__dirname+'/View/dashboard.html'), {totalCodes: totalCodes, totalProducts: totalProducts, totalReviews: totalReviews, name: req.session.companyUser});
             }
@@ -97,12 +90,8 @@ router.get('/verify',function(req,res){
 
 router.get('/reviews',function(req,res){
     if(!req.session.companyUser) {
-        console.log('req.session: ', req.session);
-        // return res.status(401).send();
         res.redirect('login');
     } else {
-        console.log('session started')
-        console.log('req.session: ', req.session);
         var requestUrl = 'http://localhost:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser;
         var options = {
             url: requestUrl
@@ -110,13 +99,9 @@ router.get('/reviews',function(req,res){
         let rd = '';
         function callback(error, response, body) {
             if (!error && response.statusCode == 200) {
-            console.log('87 body: ', body)
             rd = JSON.parse("" + (body));
-            console.log('rd is: ', rd.reviews);
-            console.log('party 1');
             res.render((__dirname+'/View/reviews.html'), {reviews: rd.reviews, name: req.session.companyUser});
             } else {
-            console.log('party 2');
             res.render((__dirname+'/View/reviews.html'), {reviews: [], name: req.session.companyUser});
             }
         }
@@ -135,10 +120,8 @@ router.get('/verifyAccount',function(req,res){
     let rd = '';
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
-          console.log('party 1');
           res.render((__dirname+'/View/login.html'), {message: "Account verified"});
         } else {
-          console.log('party 2');
           res.render((__dirname+'/View/login.html'), {message: "Account can't be verified"});
         }
     }
@@ -158,11 +141,8 @@ router.get('/settings',function(req,res){
         function callback(error, response, body) {
             if (!error && response.statusCode == 200) {
             pd = JSON.parse(body);
-            console.log('pd is: ', pd);
-            console.log('party 1');
             res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser, companyData: pd});
             } else {
-            console.log('party 2');
             res.render((__dirname+'/View/settings.html'), {name: req.session.companyUser});
             }
         }
@@ -172,13 +152,8 @@ router.get('/settings',function(req,res){
 
 router.get('/products',function(req,res){
     if(!req.session.companyUser) {
-        console.log('req.session: ', req.session);
-        // return res.status(401).send();
         res.redirect('login');
     } else {
-        console.log('session started')
-        console.log('req.session: ', req.session);
-
         var requestUrl = 'http://localhost:3333/product/getAllProducts?cId=' + req.session.companyUser;
         var options = {
             url: requestUrl
@@ -187,14 +162,8 @@ router.get('/products',function(req,res){
         function callback(error, response, body) {
             if (!error && response.statusCode == 200) {
             pd = JSON.parse("" + (body));
-            // console.log('pd is: ', pd.products);
-            console.log('party 1');
-            // for (var i = 0; i < pd.products.length; i++) {
-            //     pd.products[i].codes = Object.keys(pd.products[i].codes).length;
-            // }
             res.render((__dirname+'/View/products.html'), {products: pd.products, name: req.session.companyUser});
             } else {
-                console.log('party 2');
                 res.render((__dirname+'/View/products.html'), {products: [], name: req.session.companyUser});
             }
         }
@@ -205,12 +174,8 @@ router.get('/products',function(req,res){
 
 router.get('/currentProduct',function(req,res){
     if(!req.session.companyUser) {
-        console.log('req.session: ', req.session);
-        // return res.status(401).send();
         res.redirect('login');
     } else {
-        console.log('session started')
-        console.log('req.session: ', req.session);
         var requestUrl = 'http://localhost:3333/code/getCodes?cId=' + req.session.companyUser + '&productTitle=' + req.query.title;
         var options = {
             url: requestUrl
@@ -224,29 +189,21 @@ router.get('/currentProduct',function(req,res){
             } catch (e) {
                 codes = {}
             }
-            //   console.log('codes is: ', codes);
-            console.log('party 1');
             res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: productData});
             } else {
-            console.log('party 2');
             res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: productData, codes: {}});
             }
         }
         
         request(options, callback);
     }
-    // console.log('query: ', req.query);
-    // res.render((__dirname+'/View/currentProduct.html'), {name: req.session.companyUser, currentProductData: req.query});
 });
 
 router.get('/logout',function(req,res){
     if(!req.session.companyUser) {
-        console.log('req.session: ', req.session);
-        // return res.status(401).send();
         res.redirect('login');
     } else {
         console.log('session ending');
-        // req.session.destroy(req.session.serverSessionID);
         req.session.destroy(function(err){
             if(err){
                 console.log(err);
