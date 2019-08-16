@@ -5,7 +5,7 @@ $("#registerForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/companyUser/register",
+        url: "http://13.232.225.137:3333/companyUser/register",
         data: dataString
     }).always(function(data){
         setTimeout(function () {
@@ -28,14 +28,14 @@ $("#loginForm").on('submit',function(event) {
     $("#loginMessage").text('')
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/companyUser/login",
+        url: "http://13.232.225.137:3333/companyUser/login",
         data: dataString
     }).always(function(data){
         if (data.status == "found") {
                 dataString = data;
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:3000/sessionStart",
+                    url: "http://13.232.225.137:3000/sessionStart",
                     data: dataString
                 }).always(function(data){
                     window.location.href = "dashboard";
@@ -55,7 +55,7 @@ $("#addProductForm").on('submit',function(event) {
     dataString = dataString + '&companyId=' + $('#companyId').text();
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/product/create",
+        url: "http://13.232.225.137:3333/product/create",
         data: dataString
     }).always(function(data){
         if (data.responseText == "added") {
@@ -73,7 +73,7 @@ $("#updateProductForm").on('submit',function(event) {
     dataString = dataString + '&companyId=' + $('#companyId').text() + '&productTitle=' + $('#productTitle').text();
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/product/update",
+        url: "http://13.232.225.137:3333/product/update",
         data: dataString
     }).always(function(data){
         if (data.status == "added") {
@@ -92,7 +92,7 @@ $("#deleteProductForm").on('submit',function(event) {
     dataString = 'companyId=' + $('#companyId').text() + '&productTitle=' + $('#productTitle').text();
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/product/deleteProduct",
+        url: "http://13.232.225.137:3333/product/deleteProduct",
         data: dataString
     }).always(function(data){
         window.location.href = "products";
@@ -105,7 +105,7 @@ $("#addCodesForm").on('submit',function(event) {
     dataString = dataString + '&companyId=' + $('#companyId').text() + '&productTitle=' + $('#productTitle').text();
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/code/addCodes",
+        url: "http://13.232.225.137:3333/code/addCodes",
         data: dataString
     }).always(function(data){
         if (data.responseText == "added") {
@@ -130,7 +130,7 @@ $("#updateSettingsForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/companyUser/updateCompanyInfo",
+        url: "http://13.232.225.137:3333/companyUser/updateCompanyInfo",
         data: dataString
     }).always(function(data){
             if (data.status == "updated") {
@@ -146,7 +146,7 @@ $("#verifyAccountForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/companyUser/verify",
+        url: "http://13.232.225.137:3333/companyUser/verify",
         data: dataString
     }).always(function(data){
         setTimeout(function () {
@@ -165,7 +165,7 @@ $("#forgotPasswordEmailForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/companyUser/forgotPassword",
+        url: "http://13.232.225.137:3333/companyUser/forgotPassword",
         data: dataString
     }).always(function(data){
         setTimeout(function () {
@@ -184,7 +184,7 @@ $("#resetPasswordForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/companyUser/resetPassword",
+        url: "http://13.232.225.137:3333/companyUser/resetPassword",
         data: dataString + '&passwordResetCode=' + $('#passwordResetCode').text()
     }).always(function(data){
         setTimeout(function () {

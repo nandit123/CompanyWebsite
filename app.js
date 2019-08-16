@@ -47,7 +47,7 @@ router.get('/dashboard',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
-        var requestUrl = 'http://localhost:3333/product/getAllProducts?cId=' + req.session.companyUser;
+        var requestUrl = 'http://13.232.225.137:3333/product/getAllProducts?cId=' + req.session.companyUser;
         var options = {
             url: requestUrl
         };
@@ -59,7 +59,7 @@ router.get('/dashboard',function(req,res){
             for (var i = 0; i < totalProducts; i++) {
                 totalCodes += pd.products[i].totalCodes;
             }
-            var requestUrl2 = 'http://localhost:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser + "&type=" + 1;
+            var requestUrl2 = 'http://13.232.225.137:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser + "&type=" + 1;
             var options2 = {
                 url: requestUrl2
             };
@@ -92,7 +92,7 @@ router.get('/reviews',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
-        var requestUrl = 'http://localhost:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser;
+        var requestUrl = 'http://13.232.225.137:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser;
         var options = {
             url: requestUrl
         };
@@ -113,7 +113,7 @@ router.get('/verifyAccount',function(req,res){
     var email = req.query.email;
     var code = req.query.code;
 
-    var requestUrl = 'http://localhost:3333/companyUser/verifyAccount?email=' + email + '&code=' + code;
+    var requestUrl = 'http://13.232.225.137:3333/companyUser/verifyAccount?email=' + email + '&code=' + code;
     var options = {
         url: requestUrl
     };
@@ -133,7 +133,7 @@ router.get('/settings',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
-        var requestUrl = 'http://localhost:3333/companyUser/settings?cId=' + req.session.companyUser;
+        var requestUrl = 'http://13.232.225.137:3333/companyUser/settings?cId=' + req.session.companyUser;
         var options = {
             url: requestUrl
         };
@@ -154,7 +154,7 @@ router.get('/products',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
-        var requestUrl = 'http://localhost:3333/product/getAllProducts?cId=' + req.session.companyUser;
+        var requestUrl = 'http://13.232.225.137:3333/product/getAllProducts?cId=' + req.session.companyUser;
         var options = {
             url: requestUrl
         };
@@ -176,7 +176,7 @@ router.get('/currentProduct',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
-        var requestUrl = 'http://localhost:3333/code/getCodes?cId=' + req.session.companyUser + '&productTitle=' + req.query.title;
+        var requestUrl = 'http://13.232.225.137:3333/code/getCodes?cId=' + req.session.companyUser + '&productTitle=' + req.query.title;
         var options = {
             url: requestUrl
         };

@@ -134,7 +134,7 @@
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/email/contactUs",
+        url: "http://13.232.225.137:3333/email/contactUs",
         data: dataString
     }).always(function(data){
             if (data.responseText == "mailSent") {
@@ -153,7 +153,7 @@
     $('#subscribeMessage').hide();
     $.ajax({
         type: "POST",
-        url: "http://localhost:3333/email/subscribe",
+        url: "http://13.232.225.137:3333/email/subscribe",
         data: dataString
     }).always(function(data){
             if (data.responseText == "mailAdded") {
