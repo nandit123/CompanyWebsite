@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/companies", (req, res) => {
-    res.sendFile((__dirname+'/View/home-companies.html'));
+    res.sendFile((__dirname+'/View/companies.html'));
 });
 
 router.get("/login", (req, res) => {
