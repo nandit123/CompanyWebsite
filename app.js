@@ -25,6 +25,10 @@ router.get("/", (req, res) => {
     res.sendFile((__dirname+'/View/home.html'));
 });
 
+router.get("/companies", (req, res) => {
+    res.sendFile((__dirname+'/View/home-companies.html'));
+});
+
 router.get("/login", (req, res) => {
     console.log('login page')
     res.render((__dirname+'/View/login.html'), {message: ""});
