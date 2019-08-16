@@ -166,4 +166,28 @@
     });
   });
 
+  $("#verifyCodeForm").on('submit',function(event) {
+    event.preventDefault(); // to prevent default page reloading
+    var dataString = $(this).serialize(); // to get the form data
+    $('#verifyCodeMessage').hide();
+    $.ajax({
+        type: "POST",
+        // url: "http://localhost:3333/code/verifyCode",
+        url: "https://floating-everglades-56496.herokuapp.com/code/verifyCode",
+        data: dataString
+    }).always(function(data){
+        // setTimeout(function () {
+            $('#verifyCodeForm')[0].reset();
+            if (data.responseText == "valid") {
+              $('#verifyCodeForm')[0].reset();
+              $('#verifyCodeMessage').show();
+              $("#verifyCodeMessage").text('Valid Code')
+            } else {
+              $('#verifyCodeMessage').show();
+              $("#verifyCodeMessage").text('Invalid Code')
+            }
+        // }, 1000);
+    });
+  });
+
 })(jQuery);
