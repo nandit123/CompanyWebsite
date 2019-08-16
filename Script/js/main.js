@@ -173,7 +173,7 @@
     $.ajax({
         type: "POST",
         // url: "http://localhost:3333/code/verifyCode",
-        url: "https://floating-everglades-56496.herokuapp.com/code/verifyCode",
+        url: "http://13.232.225.137:3333/code/verifyCode",
         data: dataString
     }).always(function(data){
         // setTimeout(function () {
