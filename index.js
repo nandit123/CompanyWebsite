@@ -7,6 +7,7 @@ var redis = require('redis');
 var client = redis.createClient(); // this creates a new client
 var session = require('express-session');
 var redisStore = require('connect-redis')(session);
+const csp = require('express-csp-header');
 
 app.use(session({
     secret: 'ssshhhhh',
@@ -31,6 +32,11 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use(csp({
+    policies: {
+        'img-src': '*'
+    }
+}));
 //add the router
 // app.use(express.static(__dirname + '/View'));
 //Store all HTML files in view folder.
