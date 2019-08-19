@@ -176,8 +176,6 @@
         url: "http://13.232.225.137:3333/code/verifyCode",
         data: dataString
     }).always(function(data){
-        // setTimeout(function () {
-            $('#verifyCodeForm')[0].reset();
             if (data.responseText == "valid") {
               $('#verifyCodeForm')[0].reset();
               $('#verifyCodeMessage').show();
@@ -186,7 +184,6 @@
               $('#verifyCodeMessage').show();
               $("#verifyCodeMessage").text('Invalid Code')
             }
-        // }, 1000);
     });
   });
 
