@@ -35,7 +35,7 @@ $("#loginForm").on('submit',function(event) {
                 dataString = data;
                 $.ajax({
                     type: "POST",
-                    url: "http://13.232.225.137:3000/sessionStart",
+                    url: "http://buytrue.in/sessionStart",
                     data: dataString
                 }).always(function(data){
                     window.location.href = "dashboard";
