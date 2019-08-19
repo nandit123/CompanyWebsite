@@ -42,6 +42,8 @@ $("#loginForm").on('submit',function(event) {
                 });
         } else if (data.status == "foundButNotVerified") {
             $("#loginMessage").text('Please verify your account.')
+        } else if (data.status == "foundButNotPaid") {
+            $("#loginMessage").text('Please pay the account fee.')
         } else {
             $("#loginMessage").text('Login failed, Incorrect Details.')
         }
