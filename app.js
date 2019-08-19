@@ -52,6 +52,7 @@ router.get('/dashboard',function(req,res){
         res.redirect('login');
     } else {
         var requestUrl = 'http://13.232.225.137:3333/product/getAllProducts?cId=' + req.session.companyUser;
+        console.log('/dashboard:', req.session.companyUser);
         var options = {
             url: requestUrl
         };
@@ -207,7 +208,7 @@ router.get('/logout',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
-        console.log('session ending');
+        console.log('/logout:', req.session);
         req.session.destroy(function(err){
             if(err){
                 console.log(err);
