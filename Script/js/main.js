@@ -172,10 +172,10 @@
     $('#verifyCodeMessage').hide();
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/code/verifyCode",
+        url: "http://www.buytrue.in/verifyCodeForm",
         data: dataString
     }).always(function(data){
-            if (data.responseText == "valid") {
+            if (data == "valid") {
               $('#verifyCodeForm')[0].reset();
               $('#verifyCodeMessage').show();
               $("#verifyCodeMessage").text('Valid Code')

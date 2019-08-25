@@ -230,7 +230,7 @@ router.post('/contactUsForm', function(req, res) {
         if (!error) {
             res.send(body);
         } else {
-            res.end('mailNotSent')
+            res.send('mailNotSent')
         }
     }
     request.post(options, callback);    
@@ -247,9 +247,27 @@ router.post('/subscribeForm', function(req, res) {
         if (!error) {
             res.send(body);
         } else {
-            res.end('mailNotAdded')
+            res.send('mailNotAdded')
         }
     }
     request.post(options, callback);    
 })
+
+router.post('/verifyCodeForm', function(req, res) {
+    var requestUrl = 'http://127.0.0.1:3333/code/verifyCode';
+    var options = {
+        url: requestUrl,
+        form: req.body
+    };
+    console.log('options: ', options);
+    function callback(error, response, body) {
+        if (!error) {
+            res.send(body);
+        } else {
+            res.send('invalid')
+        }
+    }
+    request.post(options, callback);    
+})
+
 module.exports = router;
