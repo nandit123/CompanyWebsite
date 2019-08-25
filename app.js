@@ -51,7 +51,7 @@ router.get('/dashboard',function(req,res){
     if(!req.session.companyUser) {
         res.redirect('login');
     } else {
-        var requestUrl = 'http://www.buytrue.in:3333/product/getAllProducts?cId=' + req.session.companyUser;
+        var requestUrl = 'http://127.0.0.1:3333/product/getAllProducts?cId=' + req.session.companyUser;
         console.log('/dashboard:', req.session.companyUser);
         var options = {
             url: requestUrl
@@ -64,7 +64,7 @@ router.get('/dashboard',function(req,res){
             for (var i = 0; i < totalProducts; i++) {
                 totalCodes += pd.products[i].totalCodes;
             }
-            var requestUrl2 = 'http://www.buytrue.in:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser + "&type=" + 1;
+            var requestUrl2 = 'http://127.0.0.1:3333/review/getAllCompanyReviews?companyId=' + req.session.companyUser + "&type=" + 1;
             var options2 = {
                 url: requestUrl2
             };
