@@ -270,4 +270,38 @@ router.post('/verifyCodeForm', function(req, res) {
     request.post(options, callback);    
 })
 
+router.post('/registerForm', function(req, res) {
+    var requestUrl = 'http://127.0.0.1:3333/companyUser/register';
+    var options = {
+        url: requestUrl,
+        form: req.body
+    };
+    console.log('options: ', options);
+    function callback(error, response, body) {
+        if (!error) {
+            res.send(body);
+        } else {
+            res.send('invalid')
+        }
+    }
+    request.post(options, callback);    
+})
+
+router.post('/loginForm', function(req, res) {
+    var requestUrl = 'http://127.0.0.1:3333/companyUser/login';
+    var options = {
+        url: requestUrl,
+        form: req.body
+    };
+    console.log('options: ', options);
+    function callback(error, response, body) {
+        if (!error) {
+            res.send(body);
+        } else {
+            res.send('invalid')
+        }
+    }
+    request.post(options, callback);    
+})
+
 module.exports = router;

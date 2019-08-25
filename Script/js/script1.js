@@ -5,15 +5,15 @@ $("#registerForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/companyUser/register",
+        url: "http://www.buytrue.in/registerForm",
         data: dataString
     }).always(function(data){
         setTimeout(function () {
             $('#registerForm')[0].reset();
             $("#registerSuccess").show();
-            if (data.responseText == "Data added") {
+            if (data == "Data added") {
                 $("#registerSuccess").text('Registeration Success, Check your email for Verification Link!')
-            } else if (data.responseText == "alreadyAdded") {
+            } else if (data == "alreadyAdded") {
                 $("#registerSuccess").text('Registeration Failed, Email already in use.')
             } else {
                 $("#registerSuccess").text('Registeration Failed.')
@@ -28,7 +28,7 @@ $("#loginForm").on('submit',function(event) {
     $("#loginMessage").text('')
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/companyUser/login",
+        url: "http://www.buytrue.in/loginForm",
         data: dataString
     }).always(function(data){
         if (data.status == "found") {
