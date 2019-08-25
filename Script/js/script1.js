@@ -31,6 +31,7 @@ $("#loginForm").on('submit',function(event) {
         url: "http://www.buytrue.in/loginForm",
         data: dataString
     }).always(function(data){
+	data = JSON.parse(data);
         if (data.status == "found") {
                 dataString = data;
                 $.ajax({
