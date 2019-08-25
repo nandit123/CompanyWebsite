@@ -134,7 +134,7 @@
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/email/contactUs",
+        url: "http://www.buytrue.in/contactUsForm",
         data: dataString
     }).always(function(data){
             if (data.responseText == "mailSent") {
@@ -172,7 +172,6 @@
     $('#verifyCodeMessage').hide();
     $.ajax({
         type: "POST",
-        // url: "http://http://www.buytrue.in:3333/code/verifyCode",
         url: "http://www.buytrue.in:3333/code/verifyCode",
         data: dataString
     }).always(function(data){

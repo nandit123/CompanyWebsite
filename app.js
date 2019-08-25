@@ -219,4 +219,20 @@ router.get('/logout',function(req,res){
     }
 });
 
+router.post('/contactUsForm', function(req, res) {
+    var requestUrl = 'http://127.0.0.1:3333/email/contactUs';
+    var options = {
+        url: requestUrl,
+        formData: req.body
+    };
+    let rd = '';
+    function callback(error, response, body) {
+        if (!error) {
+            res.end(body);
+        } else {
+            res.end('mailNotSent')
+        }
+    }
+    request(options, callback);    
+})
 module.exports = router;
