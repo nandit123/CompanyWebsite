@@ -153,10 +153,10 @@
     $('#subscribeMessage').hide();
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/email/subscribe",
+        url: "http://www.buytrue.in/subscribeForm",
         data: dataString
     }).always(function(data){
-            if (data.responseText == "mailAdded") {
+            if (data == "mailAdded") {
               $('#subscribeForm')[0].reset();
               $('#subscribeMessage').show();
             } else {

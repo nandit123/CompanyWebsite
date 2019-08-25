@@ -225,13 +225,29 @@ router.post('/contactUsForm', function(req, res) {
         url: requestUrl,
         form: req.body
     };
-    let rd = '';
     console.log('options: ', options);
     function callback(error, response, body) {
         if (!error) {
             res.send(body);
         } else {
             res.end('mailNotSent')
+        }
+    }
+    request.post(options, callback);    
+})
+
+router.post('/subscribeForm', function(req, res) {
+    var requestUrl = 'http://127.0.0.1:3333/email/subscribe';
+    var options = {
+        url: requestUrl,
+        form: req.body
+    };
+    console.log('options: ', options);
+    function callback(error, response, body) {
+        if (!error) {
+            res.send(body);
+        } else {
+            res.end('mailNotAdded')
         }
     }
     request.post(options, callback);    
