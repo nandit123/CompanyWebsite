@@ -304,4 +304,25 @@ router.post('/loginForm', function(req, res) {
     request.post(options, callback);    
 })
 
+router.post('/addProductForm', function(req, res) {
+    if(!req.session.companyUser) {
+        res.send('invalid');
+    } else {
+        var requestUrl = 'http://127.0.0.1:3333/product/create';
+        var options = {
+            url: requestUrl,
+            form: req.body
+        };
+        console.log('options: ', options);
+        function callback(error, response, body) {
+            if (!error) {
+                res.send(body);
+            } else {
+                res.send('invalid')
+            }
+        }
+        request.post(options, callback);
+    }
+})
+
 module.exports = router;

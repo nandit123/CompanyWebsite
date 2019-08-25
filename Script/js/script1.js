@@ -58,10 +58,10 @@ $("#addProductForm").on('submit',function(event) {
     dataString = dataString + '&companyId=' + $('#companyId').text();
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/product/create",
+        url: "http://www.buytrue.in/addProductForm",
         data: dataString
     }).always(function(data){
-        if (data.responseText == "added") {
+        if (data == "added") {
                 window.location.href = "products";
         } else {
             $("#addProductMessage").text('Product title already in use.')
