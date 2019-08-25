@@ -226,13 +226,14 @@ router.post('/contactUsForm', function(req, res) {
         form: req.body
     };
     let rd = '';
+    console.log('options: ', options);
     function callback(error, response, body) {
         if (!error) {
-            res.end(body);
+            res.send(body);
         } else {
             res.end('mailNotSent')
         }
     }
-    request(options, callback);    
+    request.post(options, callback);    
 })
 module.exports = router;

@@ -137,7 +137,7 @@
         url: "http://www.buytrue.in/contactUsForm",
         data: dataString
     }).always(function(data){
-            if (data.responseText == "mailSent") {
+            if (data == "mailSent") {
               $('#contactForm')[0].reset();
               $('#sendMessage').show();
             } else {
