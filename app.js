@@ -325,4 +325,140 @@ router.post('/addProductForm', function(req, res) {
     }
 })
 
+router.post('/updateProductForm', function(req, res) {
+    if(!req.session.companyUser) {
+        res.send('invalid');
+    } else {
+        var requestUrl = 'http://127.0.0.1:3333/product/update';
+        var options = {
+            url: requestUrl,
+            form: req.body
+        };
+        console.log('options: ', options);
+        function callback(error, response, body) {
+            if (!error) {
+                res.send(body);
+            } else {
+                res.send('invalid')
+            }
+        }
+        request.post(options, callback);
+    }
+})
+
+router.post('/deleteProductForm', function(req, res) {
+    if(!req.session.companyUser) {
+        res.send('invalid');
+    } else {
+        var requestUrl = 'http://127.0.0.1:3333/product/deleteProduct';
+        var options = {
+            url: requestUrl,
+            form: req.body
+        };
+        console.log('options: ', options);
+        function callback(error, response, body) {
+            if (!error) {
+                res.send(body);
+            } else {
+                res.send('invalid')
+            }
+        }
+        request.post(options, callback);
+    }
+})
+
+
+router.post('/addCodesForm', function(req, res) {
+    if(!req.session.companyUser) {
+        res.send('invalid');
+    } else {
+        var requestUrl = 'http://127.0.0.1:3333/code/addCodes';
+        var options = {
+            url: requestUrl,
+            form: req.body
+        };
+        console.log('options: ', options);
+        function callback(error, response, body) {
+            if (!error) {
+                res.send(body);
+            } else {
+                res.send('invalid')
+            }
+        }
+        request.post(options, callback);
+    }
+})
+
+router.post('/updateSettingsForm', function(req, res) {
+    if(!req.session.companyUser) {
+        res.send('invalid');
+    } else {
+        var requestUrl = 'http://127.0.0.1:3333/companyUser/updateCompanyInfo';
+        var options = {
+            url: requestUrl,
+            form: req.body
+        };
+        console.log('options: ', options);
+        function callback(error, response, body) {
+            if (!error) {
+                res.send(body);
+            } else {
+                res.send('invalid')
+            }
+        }
+        request.post(options, callback);
+    }
+})
+
+router.post('/verifyAccountForm', function(req, res) {
+    var requestUrl = 'http://127.0.0.1:3333/companyUser/verify';
+    var options = {
+        url: requestUrl,
+        form: req.body
+    };
+    console.log('options: ', options);
+    function callback(error, response, body) {
+        if (!error) {
+            res.send(body);
+        } else {
+            res.send('invalid')
+        }
+    }
+    request.post(options, callback);    
+})
+
+router.post('/forgotPasswordEmailForm', function(req, res) {
+    var requestUrl = 'http://127.0.0.1:3333/companyUser/forgotPassword';
+    var options = {
+        url: requestUrl,
+        form: req.body
+    };
+    console.log('options: ', options);
+    function callback(error, response, body) {
+        if (!error) {
+            res.send(body);
+        } else {
+            res.send('invalid')
+        }
+    }
+    request.post(options, callback);    
+})
+
+router.post('/resetPasswordForm', function(req, res) {
+    var requestUrl = 'http://127.0.0.1:3333/companyUser/resetPassword';
+    var options = {
+        url: requestUrl,
+        form: req.body
+    };
+    console.log('options: ', options);
+    function callback(error, response, body) {
+        if (!error) {
+            res.send(body);
+        } else {
+            res.send('invalid')
+        }
+    }
+    request.post(options, callback);    
+})
+
 module.exports = router;

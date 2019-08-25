@@ -76,9 +76,10 @@ $("#updateProductForm").on('submit',function(event) {
     dataString = dataString + '&companyId=' + $('#companyId').text() + '&productTitle=' + $('#productTitle').text();
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/product/update",
+        url: "http://www.buytrue.in/updateProductForm",
         data: dataString
     }).always(function(data){
+        data = JSON.parse(data);
         if (data.status == "added") {
                 var dataString = "title=" + data.title + "&picture=" + data.picture + "&description=" + data.description;
                 window.location.href = "currentProduct?" + dataString;
@@ -95,7 +96,7 @@ $("#deleteProductForm").on('submit',function(event) {
     dataString = 'companyId=' + $('#companyId').text() + '&productTitle=' + $('#productTitle').text();
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/product/deleteProduct",
+        url: "http://www.buytrue.in/deleteProductForm",
         data: dataString
     }).always(function(data){
         window.location.href = "products";
@@ -108,10 +109,10 @@ $("#addCodesForm").on('submit',function(event) {
     dataString = dataString + '&companyId=' + $('#companyId').text() + '&productTitle=' + $('#productTitle').text();
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/code/addCodes",
+        url: "http://www.buytrue.in/addCodesForm",
         data: dataString
     }).always(function(data){
-        if (data.responseText == "added") {
+        if (data == "added") {
             window.location.href = 'currentProduct?title=' + $('#productTitle').text();
         } else {
         }
@@ -133,9 +134,10 @@ $("#updateSettingsForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/companyUser/updateCompanyInfo",
+        url: "http://www.buytrue.in/updateSettingsForm",
         data: dataString
     }).always(function(data){
+            data = JSON.parse(data);
             if (data.status == "updated") {
                 window.location.href = "settings";
             } else {
@@ -149,12 +151,12 @@ $("#verifyAccountForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/companyUser/verify",
+        url: "http://www.buytrue.in/verifyAccountForm",
         data: dataString
     }).always(function(data){
         setTimeout(function () {
             $('#verifyAccountForm')[0].reset();
-            if (data.responseText == "emailSent") {
+            if (data == "emailSent") {
                 $("#emailSentSuccess").text('Check your email for Verification Link!')
             } else {
                 $("#emailSentSuccess").text('Email cant be sent.')
@@ -168,12 +170,12 @@ $("#forgotPasswordEmailForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/companyUser/forgotPassword",
+        url: "http://www.buytrue.in/forgotPasswordEmailForm",
         data: dataString
     }).always(function(data){
         setTimeout(function () {
             $('#forgotPasswordEmailForm')[0].reset();
-            if (data.responseText == "emailSent") {
+            if (data == "emailSent") {
                 $("#passwordEmailSentSuccess").text('Check your email for Password Change Link!')
             } else {
                 $("#passwordEmailSentSuccess").text('Email cant be sent.')
@@ -187,12 +189,12 @@ $("#resetPasswordForm").on('submit',function(event) {
     var dataString = $(this).serialize(); // to get the form data
     $.ajax({
         type: "POST",
-        url: "http://www.buytrue.in:3333/companyUser/resetPassword",
+        url: "http://www.buytrue.in/resetPasswordForm",
         data: dataString + '&passwordResetCode=' + $('#passwordResetCode').text()
     }).always(function(data){
         setTimeout(function () {
             $('#resetPasswordForm')[0].reset();
-            if (data.responseText == "passwordChanged") {
+            if (data == "passwordChanged") {
                 window.location.href = "login";
             } else {
                 $("#newPasswordSuccess").text('Password reset error.')
