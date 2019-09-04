@@ -5,12 +5,19 @@ $(document).ready(function() {
         searching: true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'csv', 'excel', 'pdf', 'print',
+	    {
+		extend: 'pdfHtml5',
+		exportOptions: {
+		    stripHtml: false
+		}
+	    }
         ],
         "columnDefs": [
             {
+		"targets": 4,
                 "data": "QR Code",
-                "render": function(data, type, row) {
+                "render": function(data, type, row, meta) {
                     return '<img src="'+data+'" />';
                 }            
             }
