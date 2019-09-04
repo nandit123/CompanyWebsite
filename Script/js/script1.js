@@ -202,3 +202,10 @@ $("#resetPasswordForm").on('submit',function(event) {
         }, 1000);
     });
 });
+
+function printPdf() {
+    var doc = new jsPDF();
+    // You can use html:
+    doc.autoTable({html: '#dataTable'});
+    doc.save('table.pdf');
+}
