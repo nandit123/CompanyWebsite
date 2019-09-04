@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
 
 app.use(csp({
     policies: {
-        'img-src': ['*']
+        'img-src': ['*', 'data:']
     }
 }));
 //add the router
